@@ -1,0 +1,30 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: msa-demo-gateway-api
+  cloud:
+    gateway:
+      routes:
+        # route 1, route id msa-demo-auth-api
+        - id: msa-demo-auth-api
+          uri: http://localhost:8080
+          predicates:
+            - Path=/auth/** # path match
+#          filters:
+#            - NotAllowedURIExceptionFilter # filter
+        # route 2, route id msa-demo-app1-api
+        - id: msa-demo-app1-api
+          uri: http://localhost:8081
+          predicates:
+            - Path=/app1/** # path match
+#          filters:
+#            - NotAllowedURIExceptionFilter # filter
+        # route 3, route id msa-demo-app2-api
+        - id: msa-demo-app2-api
+          uri: http://localhost:8082
+          predicates:
+            - Path=/app2/** # path match
+#          filters:
+#            - RewritePath=/sample/(?<segment>.*), /$\{segment}
